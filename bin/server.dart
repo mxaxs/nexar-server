@@ -32,6 +32,7 @@ FutureOr<Response> _rootHandler(Request req) async {
 
 Response _echoHandler(Request request) {
   final message = request.params['message'];
+
   return Response.ok('$message\n');
 }
 
