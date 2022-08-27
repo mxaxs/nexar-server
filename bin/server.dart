@@ -13,21 +13,24 @@ final _router = Router()
   ..post('/calc', _calcHandler);
 
 FutureOr<Response> _rootHandler(Request req) async {
-  var connection = PostgreSQLConnection("db", 5432, "postgres",
-      username: "postgres", password: "postgres");
-  await connection.open().then(
-        (value) => print("DB CONNECTED!"),
-      );
-  List<List<dynamic>> results = await connection.query("SELECT * FROM users");
+  try {
+    var connection = PostgreSQLConnection("db", 5432, "postgres",
+        username: "postgres", password: "postgres");
+    await connection.open().then(
+          (value) => print("DB CONNECTED!"),
+        );
+    List<List<dynamic>> results = await connection.query("SELECT * FROM users");
 
-  for (final row in results) {
-    var a = row[0];
-    var b = row[1];
-    var c = row[2];
-    print("$a $b $c");
+    for (final row in results) {
+      var a = row[0];
+      var b = row[1];
+      var c = row[2];
+      print("$a $b $c");
+    }
+    return Response.ok('Estes são os resultdos \n ${results.toString()}\n');
+  } catch (e) {
+    return Response.ok("Error: $e");
   }
-
-  return Response.ok('Estes são os resultdos \n ${results.toString()}\n');
 }
 
 Response _echoHandler(Request request) {
