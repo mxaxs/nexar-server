@@ -14,7 +14,7 @@ final _router = Router()
 
 FutureOr<Response> _rootHandler(Request req) async {
   try {
-    var connection = PostgreSQLConnection("db", 5432, "postgres",
+    var connection = PostgreSQLConnection("172.17.0.1", 5432, "postgres",
         username: "postgres", password: "postgres");
     await connection.open().then(
           (value) => print("DB CONNECTED!"),
